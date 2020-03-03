@@ -1,0 +1,25 @@
+{
+    "version": 1,
+    "info": {
+        "title": "Custom Block",
+        "author": "Test User",
+        "description": "Custom block example",
+        "name": "Custom block",
+        "cppType": "custom_block",
+        "preferConvolution": false
+    },
+    "parameters": [
+        {
+            "group": "Scaling",
+            "items": [
+                {
+                    "name": "Scale axes",
+                    "value": 1,
+                    "type": "float",
+                    "help": "Multiplies axes by this number",
+                    "param": "scale-axes"
+                }
+            ]
+        }
+    ]
+}
