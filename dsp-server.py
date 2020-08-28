@@ -83,7 +83,10 @@ def batch_req(self, fn, body):
 
         total += 1
 
-    body = json.dumps({ 'success': True, 'features': features, 'labels': labels })
+    if ('output_config' in f.keys()):
+        body = json.dumps({ 'success': True, 'features': features, 'labels': labels, 'output_config': f['output_config'] })
+    else:
+        body = json.dumps({ 'success': True, 'features': features, 'labels': labels })
 
     self.send_response(200)
     self.send_header('Content-Type', 'application/json')
