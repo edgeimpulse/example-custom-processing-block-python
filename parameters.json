@@ -6,7 +6,8 @@
         "description": "Custom block example",
         "name": "Custom block",
         "cppType": "custom_block",
-        "preferConvolution": false
+        "preferConvolution": false,
+        "visualization": "dimensionalityReduction"
     },
     "parameters": [
         {

@@ -23,4 +23,15 @@ def generate_features(draw_graphs, raw_data, axes, sampling_freq, scale_axes):
         for f in fx:
             features.append(f)
 
-    return { 'features': features, 'graphs': graphs }
+    return {
+        'features': features,
+        'graphs': graphs,
+        'output_config': {
+            # type can be 'flat', 'image' or 'spectrogram'
+            'type': 'flat',
+            'shape': {
+                # shape should be { width, height, channels } for image, { width, height } for spectrogram
+                'width': len(features)
+            }
+        }
+    }
