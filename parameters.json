@@ -8,7 +8,8 @@
         "cppType": "custom_block",
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
-        "experimental": false
+        "experimental": false,
+        "latestImplementationVersion": 1
     },
     "parameters": [
         {

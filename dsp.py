@@ -1,6 +1,6 @@
 import numpy as np
 
-def generate_features(draw_graphs, raw_data, axes, sampling_freq, scale_axes):
+def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq, scale_axes):
     # features is a 1D array, reshape so we have a matrix
     raw_data = raw_data.reshape(int(len(raw_data) / len(axes)), len(axes))
 
