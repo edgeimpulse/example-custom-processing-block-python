@@ -26,7 +26,7 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
     return {
         'features': features,
         'graphs': graphs,
-        # if you use FFTs then set the used FFTs here (this helps with memory optimization on MCUs)
+        # if you use FFTs then set sizes of the used FFTs here (this helps with memory optimization on MCUs)
         'fft_used': [],
         'output_config': {
             # type can be 'flat', 'image' or 'spectrogram'
