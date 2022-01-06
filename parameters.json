@@ -1,11 +1,11 @@
 {
     "version": 1,
     "info": {
-        "title": "Custom Block",
+        "title": "Custom Matlab Block",
         "author": "Test User",
         "description": "Custom block example",
-        "name": "Custom block",
-        "cppType": "custom_block",
+        "name": "Custom Matlab block",
+        "cppType": "custom_matlab_block",
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
@@ -13,14 +13,28 @@
     },
     "parameters": [
         {
-            "group": "Scaling",
+            "group": "Spectrogram",
             "items": [
                 {
-                    "name": "Scale axes",
-                    "value": 1,
-                    "type": "float",
-                    "help": "Multiplies axes by this number",
-                    "param": "scale-axes"
+                    "name": "Window",
+                    "value": 32,
+                    "type": "int",
+                    "help": "XXX",
+                    "param": "window"
+                },
+                {
+                    "name": "Noverlap",
+                    "value": 16,
+                    "type": "int",
+                    "help": "YYY",
+                    "param": "noverlap"
+                },
+                {
+                    "name": "FFT",
+                    "value": 64,
+                    "type": "int",
+                    "help": "ZZZ",
+                    "param": "fft"
                 }
             ]
         }
