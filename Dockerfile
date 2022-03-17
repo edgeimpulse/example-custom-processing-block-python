@@ -7,7 +7,6 @@ WORKDIR /app
 COPY requirements-blocks.txt ./
 RUN pip3 --no-cache-dir install -r requirements-blocks.txt
 
-COPY third_party /third_party
 COPY . ./
 
 EXPOSE 4446
