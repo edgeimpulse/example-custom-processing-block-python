@@ -23,6 +23,18 @@
                     "param": "scale-axes"
                 }
             ]
+        },        
+        {
+            "group": "Filter",
+            "items": [
+                {
+                    "name": "Smooth",
+                    "value": false,
+                    "type": "boolean",
+                    "help": "Whether to smooth the data",
+                    "param": "smooth"
+                }
+            ]
         }
     ]
 }
