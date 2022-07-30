@@ -1,11 +1,11 @@
 {
     "version": 1,
     "info": {
-        "title": "Custom Block",
-        "author": "Test User",
-        "description": "Custom block example",
-        "name": "Custom block",
-        "cppType": "custom_block",
+        "title": "PPG to HR",
+        "author": "Health Reference Inc.",
+        "description": "Turn PPG data into HR features",
+        "name": "PPG to HR",
+        "cppType": "ppg_to_hr",
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
@@ -13,14 +13,21 @@
     },
     "parameters": [
         {
-            "group": "Scaling",
+            "group": "Filters",
             "items": [
                 {
-                    "name": "Scale axes",
-                    "value": 1,
+                    "name": "Low band",
+                    "value": 0.6,
                     "type": "float",
-                    "help": "Multiplies axes by this number",
-                    "param": "scale-axes"
+                    "help": "Lower band of the filter",
+                    "param": "filter_low"
+                },
+                {
+                    "name": "High band",
+                    "value": 10,
+                    "type": "float",
+                    "help": "High band of the filter",
+                    "param": "filter_high"
                 }
             ]
         }

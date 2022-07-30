@@ -1,2 +1,5 @@
-matplotlib==3.4.3
-numpy==1.21.0
+heartpy
+numpy
+pandas
+pyarrow
+scipy

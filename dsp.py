@@ -1,6 +1,15 @@
+import pandas as pd
+import heartpy as hp
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from scipy.signal import butter, lfilter, freqz, sosfilt
+from scipy.signal import find_peaks
+from scipy import stats
+import io, base64
 
-def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq, scale_axes):
+def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq, filter_low, filter_high):
     # features is a 1D array, reshape so we have a matrix
     raw_data = raw_data.reshape(int(len(raw_data) / len(axes)), len(axes))
 
@@ -13,15 +22,33 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
         for ix in range(0, raw_data.shape[0]):
             X.append(float(raw_data[ix][ax]))
 
-        # X now contains only the current axis
-        fx = np.array(X)
+        sos = butter(6, [float(filter_low), float(filter_high)], 'band', output='sos', fs=sampling_freq)
+        slice = sosfilt(sos, X)
 
-        # process the signal here
-        fx = fx * scale_axes
+        peaks, _ = find_peaks(slice, prominence=200, distance=0.3*sampling_freq)
+        hr = len(peaks) * (60*sampling_freq / (len(X)))
+        features.append(hr)
 
-        # we need to return a 1D array again, so flatten here again
-        for f in fx:
-            features.append(f)
+        if draw_graphs:
+            plt.cla()
+            plt.plot(peaks, slice[peaks], "xr");
+            plt.plot(slice)
+
+            buf = io.BytesIO()
+
+            plt.savefig(buf, format='svg', bbox_inches='tight', pad_inches=0)
+
+            buf.seek(0)
+            image = (base64.b64encode(buf.getvalue()).decode('ascii'))
+
+            buf.close()
+
+            graphs.append({
+                'name': 'PPG Peaks (after filter)',
+                'image': image,
+                'imageMimeType': 'image/svg+xml',
+                'type': 'image'
+            })
 
     return {
         'features': features,
