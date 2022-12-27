@@ -9,6 +9,7 @@
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
+        "hasTfliteImplementation": true,
         "latestImplementationVersion": 1
     },
     "parameters": [
