@@ -67,8 +67,6 @@ def get_dsp_impl(implementation_version, axes_length, sampling_freq, scale_axes,
 # Get the corresponding TFLite model that maps to generate_features w/ the same parameters
 def get_tflite_implementation(implementation_version, input_shape, axes, sampling_freq, scale_axes,
                               average, minimum, maximum, rms, stdev):
-    print('get_tflite_implementation', input_shape)
-
     get_features_fn = get_dsp_impl(implementation_version, len(axes), sampling_freq, scale_axes,
         average, minimum, maximum, rms, stdev)
 
