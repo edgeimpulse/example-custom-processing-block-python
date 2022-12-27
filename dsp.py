@@ -28,16 +28,10 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
 # this returns a function to generate features
 def get_dsp_impl(implementation_version, axes_length, sampling_freq, scale_axes,
                  average, minimum, maximum, rms, stdev):
-    # calc out feature count outside of the function
-    out_feature_count = jnp.count_nonzero(jnp.array([ average, minimum, maximum, rms, stdev ]))
-
     def get_features(raw_data):
         # data is interleaved (so a,b,c,a,b,c) so reshape and transpose - this yields one
         # row per axis (e.g. [ [ a, a ], [ b, b ], [ c, c ] ])
         raw_data = raw_data.reshape((-1, axes_length)).transpose()
-
-        out_features = jnp.zeros(out_feature_count)
-        out_feature_ix = 0
 
         features = []
 
