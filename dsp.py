@@ -27,9 +27,9 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
 # this returns a function to generate features
 def get_dsp_impl(implementation_version, axes_length, sampling_freq, scale_axes):
     def get_features(raw_data):
-        # data is interleaved (so a,b,c,a,b,c) so transpose and reshape - this yields one
+        # data is interleaved (so a,b,c,a,b,c) so reshape and transpose - this yields one
         # row per axis (e.g. [ [ a, a ], [ b, b ], [ c, c ] ])
-        raw_data = raw_data.transpose().reshape(-1, axes_length)
+        raw_data = raw_data.reshape((-1, axes_length)).transpose()
 
         # multiply by scale_axes
         raw_data = raw_data * scale_axes
