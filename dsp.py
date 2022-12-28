@@ -1,6 +1,7 @@
 import jax.numpy as jnp
 from jax.experimental import jax2tf
 import tensorflow as tf
+from filter import lowpass_filter
 
 def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq, scale_axes,
                       average, minimum, maximum, rms, stdev):
@@ -29,9 +30,15 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
 def get_dsp_impl(implementation_version, axes_length, sampling_freq, scale_axes,
                  average, minimum, maximum, rms, stdev):
     def get_features(raw_data):
+        raw_data = jnp.array(raw_data)
+
         # data is interleaved (so a,b,c,a,b,c) so reshape and transpose - this yields one
         # row per axis (e.g. [ [ a, a ], [ b, b ], [ c, c ] ])
         raw_data = raw_data.reshape((-1, axes_length)).transpose()
+
+        # very inefficient filter implemented below ;-)
+        # for i in range(0, axes_length):
+        #     raw_data = raw_data.at[i].set(lowpass_filter(raw_data[i], sampling_freq, 3.0, 6))
 
         features = []
 
