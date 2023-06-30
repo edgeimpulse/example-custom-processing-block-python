@@ -9,6 +9,7 @@
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
+        "hasTfliteImplementation": true,
         "latestImplementationVersion": 1
     },
     "parameters": [
@@ -19,8 +20,48 @@
                     "name": "Scale axes",
                     "value": 1,
                     "type": "float",
-                    "help": "Multiplies axes by this number",
+                    "help": "Multiply axes by this number",
                     "param": "scale-axes"
+                }
+            ]
+        },
+        {
+            "group": "Method",
+            "items": [
+                {
+                    "name": "Average",
+                    "value": true,
+                    "type": "boolean",
+                    "help": "Calculates the average value for the window",
+                    "param": "average"
+                },
+                {
+                    "name": "Minimum",
+                    "value": true,
+                    "type": "boolean",
+                    "help": "Calculates the minimum value in the window",
+                    "param": "minimum"
+                },
+                {
+                    "name": "Maximum",
+                    "value": true,
+                    "type": "boolean",
+                    "help": "Calculates the maximum value in the window",
+                    "param": "maximum"
+                },
+                {
+                    "name": "Root-mean square",
+                    "value": true,
+                    "type": "boolean",
+                    "help": "Calculates the RMS value of the window",
+                    "param": "rms"
+                },
+                {
+                    "name": "Standard deviation",
+                    "value": true,
+                    "type": "boolean",
+                    "help": "Calculates the standard deviation of the window",
+                    "param": "stdev"
                 }
             ]
         }
