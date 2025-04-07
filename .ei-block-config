@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "config": {
+        "192.168.3.1": {
+            "organizationId": 1,
+            "id": 97
+        }
+    }
+}

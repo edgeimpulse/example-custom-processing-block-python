@@ -1,16 +1,18 @@
 {
     "version": 1,
+    "type": "dsp",
     "info": {
-        "title": "Custom Block",
+        "title": "Custom JAX block",
         "author": "Test User",
-        "description": "Custom block example",
-        "name": "Custom block",
-        "cppType": "custom_block",
+        "description": "Custom block that outputs a JAX graph",
+        "name": "Custom JAX block",
+        "cppType": "custom_block_jax",
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
         "hasTfliteImplementation": true,
-        "latestImplementationVersion": 1
+        "latestImplementationVersion": 1,
+        "port": 4446
     },
     "parameters": [
         {
