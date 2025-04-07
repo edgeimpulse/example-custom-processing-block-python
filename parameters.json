@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "type": "dsp",
     "info": {
         "title": "Custom Block",
         "author": "Test User",
@@ -9,7 +10,8 @@
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
-        "latestImplementationVersion": 1
+        "latestImplementationVersion": 1,
+        "port": 4446
     },
     "parameters": [
         {
