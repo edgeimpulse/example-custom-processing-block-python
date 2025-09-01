@@ -10,6 +10,11 @@ import traceback
 import logging
 import numpy as np
 from dsp import generate_features
+import inspect
+
+def has_named_param(func, name: str) -> bool:
+    sig = inspect.signature(func)
+    return name in sig.parameters
 
 def get_params(self):
     with open('parameters.json', 'r') as f:
@@ -62,6 +67,13 @@ def batch_req(self, fn, body):
         'implementation_version': body['implementation_version']
     }
 
+    state = None
+    if 'state' in body:
+        if body['state'] == '':
+            state = None
+        else:
+            state = body['state']
+
     for param_key in body['params'].keys():
         base_args[param_key] = body['params'][param_key]
 
@@ -73,6 +85,8 @@ def batch_req(self, fn, body):
     for example in body['features']:
         args = dict(base_args)
         args['raw_data'] = np.array(example)
+        if has_named_param(fn, 'state'):
+            args['state'] = state
         f = fn(**args)
         if (isinstance(f['features'], np.ndarray)):
             features.append(f['features'].tolist())
@@ -85,13 +99,17 @@ def batch_req(self, fn, body):
             if ('output_config' in f):
                 output_config = f['output_config']
 
+        if 'state' in f:
+            state = f['state']
+
         total += 1
 
     body = json.dumps({
         'success': True,
         'features': features,
         'labels': labels,
-        'output_config': output_config
+        'output_config': output_config,
+        'state': state,
     })
 
     self.send_response(200)
