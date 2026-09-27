@@ -31,7 +31,7 @@ def _statistics(values):
     ]
 
 
-def _power_spectrum(values, sampling_freq, spectral_window):
+def _power_spectrum(values, sampling_freq, spectral_window, fft_lengths_used=None):
     """Return frequencies and normalized power from a Hann-windowed spectrum."""
     windows = {
         'hanning': np.hanning,
@@ -44,24 +44,32 @@ def _power_spectrum(values, sampling_freq, spectral_window):
     except KeyError as error:
         raise ValueError('spectral_window must be hanning, hamming, blackman, or rectangular') from error
     windowed = (values - np.mean(values)) * window
-    spectrum = np.abs(np.fft.rfft(windowed)) ** 2
-    frequencies = np.fft.rfftfreq(len(values), 1.0 / sampling_freq)
+    fft_length = 1 << (len(windowed) - 1).bit_length()
+    if fft_lengths_used is not None:
+        fft_lengths_used.append(fft_length)
+    spectrum = np.abs(np.fft.rfft(windowed, n=fft_length)) ** 2
+    frequencies = np.fft.rfftfreq(fft_length, 1.0 / sampling_freq)
     if len(spectrum) > 1:
         spectrum = spectrum[1:]
         frequencies = frequencies[1:]
     return frequencies, spectrum / (np.sum(spectrum) + 1e-12)
 
 
-def _spectral_features(values, sampling_freq, spectral_window):
+def _spectral_features(values, sampling_freq, spectral_window, fft_lengths_used=None):
     """Summarize a Hann-windowed one-sided power spectrum."""
-    frequencies, probabilities = _power_spectrum(values, sampling_freq, spectral_window)
+    frequencies, probabilities = _power_spectrum(
+        values, sampling_freq, spectral_window, fft_lengths_used
+    )
 
     band_edges = (0.0, 0.5, 2.0, 5.0, 10.0, 20.0)
     band_power = []
     for lower, upper in zip(band_edges[:-1], band_edges[1:]):
         band_power.append(np.sum(probabilities[(frequencies >= lower) & (frequencies < upper)]))
 
-    spectral_entropy = -np.sum(probabilities * np.log(probabilities + 1e-12)) / np.log(len(probabilities))
+    if len(probabilities) <= 1:
+        spectral_entropy = 0.0
+    else:
+        spectral_entropy = -np.sum(probabilities * np.log(probabilities + 1e-12)) / np.log(len(probabilities))
     return [
         *band_power,
         frequencies[np.argmax(probabilities)] if len(probabilities) else 0.0,
@@ -96,6 +104,7 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
 
     features = []
     labels = []
+    fft_lengths_used = []
 
     def add_group(name, values, group_labels):
         group_values = np.asarray(values, dtype=float)
@@ -114,7 +123,10 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
     spectral_labels = ('band_0_0_5', 'band_0_5_2', 'band_2_5', 'band_5_10', 'band_10_20',
                        'dominant_hz', 'centroid_hz', 'entropy', 'peak_ratio')
     for name, values in [('motion_magnitude', motion_magnitude), ('magnitude', magnitude)]:
-        for label, value in zip(spectral_labels, _spectral_features(values, sampling_freq, spectral_window)):
+        for label, value in zip(
+            spectral_labels,
+            _spectral_features(values, sampling_freq, spectral_window, fft_lengths_used),
+        ):
             labels.append(name + '_' + label)
             features.append(value)
 
@@ -158,7 +170,7 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
             })
 
         spectrum_frequencies, spectrum_power = _power_spectrum(
-            motion_magnitude, sampling_freq, spectral_window
+            motion_magnitude, sampling_freq, spectral_window, fft_lengths_used
         )
         graphs.append({
             'name': 'Motion spectrum',
@@ -172,7 +184,7 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
         'features': [float(value) for value in features],
         'labels': labels,
         'graphs': graphs,
-        'fft_used': [len(samples)],
+        'fft_used': sorted(set(fft_lengths_used)),
         'output_config': {
             'type': 'flat',
             'shape': {'width': len(features)},
