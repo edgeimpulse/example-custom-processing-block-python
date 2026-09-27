@@ -2,15 +2,16 @@
     "version": 1,
     "type": "dsp",
     "info": {
+        "name": "Custom block (Pyodide)",
         "title": "Custom Block (Pyodide)",
         "author": "Test User",
         "description": "Custom block example in Pyodide",
-        "name": "Custom block",
         "blockType": "pyodide_v1",
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,
-        "latestImplementationVersion": 1
+        "latestImplementationVersion": 1,
+        "port": 80
     },
     "parameters": [
         {

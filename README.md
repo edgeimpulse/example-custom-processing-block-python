@@ -15,11 +15,15 @@ This is an example of a custom processing block, which you can load in the Edge 
 
     ![Copy features](images/copy-features.png)
 
-4. Run the DSP block:
+4. Run the DSP block to ensure your environment is set up correctly:
 
     ```
     python3 run.py --features features.txt --frequency 62.5 --axes "accX,accY,accZ" --scale-axes 1
     ```
+
+    (Update frequency and axes with the frequency/axes of your data sample)
+
+You're now ready to customize this example; and add your own DSP code in `dsp.py`.
 
 ## Adding extra parameters
 
@@ -29,3 +33,19 @@ If you have new parameters you want to add to the block:
 2. Also add them to the `parameters` section in `parameters.json`. This will ensure there's UI rendered to configure the new parameters. See the `DSPParameterItem` spec in https://docs.edgeimpulse.com/tools/specifications/files/parameters-json for all options.
 
 `run.py` will automatically pick up new parameters in `parameters.json`.
+
+## Publishing to Edge Impulse
+
+1. Initialize the block:
+
+    ```
+    edge-impulse-blocks init --clean
+    ```
+
+2. Push the block:
+
+    ```
+    edge-impulse-blocks push
+    ```
+
+3. Add the block via **Create impulse > Add a processing block**.

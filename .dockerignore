@@ -1,0 +1,9 @@
+.git/
+.venv/
+__pycache__/
+features.txt
+.ei-block-config
+.gitignore
+images/
+README.md
+LICENSE
