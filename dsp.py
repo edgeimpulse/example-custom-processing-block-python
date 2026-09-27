@@ -135,19 +135,27 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
     graphs = []
     if draw_graphs:
         time_ms = (np.arange(samples.shape[0]) / sampling_freq * 1000.0).tolist()
-        processed = {}
+        gravity_signals = {}
+        motion_signals = {}
         for index, name in enumerate(axis_names):
-            processed[name + ' raw'] = samples[:, index].tolist()
-            processed[name + ' gravity'] = gravity[:, index].tolist()
-            processed[name + ' motion'] = motion[:, index].tolist()
-        processed['magnitude'] = magnitude.tolist()
-        graphs.append({
-            'name': 'Accelerometer preprocessing',
-            'X': processed,
-            'y': time_ms,
-            'suggestedYMin': float(np.min(samples)),
-            'suggestedYMax': float(np.max(samples)),
-        })
+            gravity_signals[name] = gravity[:, index].tolist()
+            motion_signals[name] = motion[:, index].tolist()
+
+        for name, values in [
+            ('Estimated gravity', gravity_signals),
+            ('Dynamic motion', motion_signals),
+            ('Signal magnitude', {
+                'total': magnitude.tolist(),
+                'motion': motion_magnitude.tolist(),
+            }),
+        ]:
+            graphs.append({
+                'name': name,
+                'X': values,
+                'y': time_ms,
+                'suggestedYMin': float(np.min(samples)),
+                'suggestedYMax': float(np.max(samples)),
+            })
 
         spectrum_frequencies, spectrum_power = _power_spectrum(
             motion_magnitude, sampling_freq, spectral_window
@@ -157,7 +165,7 @@ def generate_features(implementation_version, draw_graphs, raw_data, axes, sampl
             'X': {'normalized power': spectrum_power.tolist()},
             'y': spectrum_frequencies.tolist(),
             'suggestedYMin': 0,
-            'suggestedYMax': float(sampling_freq / 2.0),
+            'suggestedYMax': 1.0,
         })
 
     return {

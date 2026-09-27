@@ -12,8 +12,7 @@
         "experimental": false,
         "latestImplementationVersion": 1,
         "hasAutoTune": true,
-        "minimumVersionForAutotune": 1,
-        "port": 80
+        "minimumVersionForAutotune": 1
     },
     "parameters": [
         {
