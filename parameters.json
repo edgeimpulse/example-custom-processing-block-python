@@ -11,6 +11,8 @@
         "visualization": "dimensionalityReduction",
         "experimental": false,
         "latestImplementationVersion": 1,
+        "hasAutoTune": true,
+        "minimumVersionForAutotune": 1,
         "port": 80
     },
     "parameters": [
@@ -23,6 +25,43 @@
                     "type": "float",
                     "help": "Multiplies axes by this number",
                     "param": "scale-axes"
+                }
+            ]
+        },
+        {
+            "group": "Filter",
+            "items": [
+                {
+                    "name": "Gravity cutoff (Hz)",
+                    "value": 0.7,
+                    "type": "float",
+                    "help": "Low-pass cutoff used to estimate gravity; the remaining signal is treated as dynamic motion.",
+                    "param": "gravity-cutoff"
+                },
+                {
+                    "name": "Filter order",
+                    "value": 2,
+                    "type": "int",
+                    "help": "Order of the zero-phase Butterworth filter used to estimate gravity.",
+                    "param": "filter-order"
+                }
+            ]
+        },
+        {
+            "group": "Spectrum",
+            "items": [
+                {
+                    "name": "Spectral window",
+                    "value": "hanning",
+                    "type": "select",
+                    "valid": [
+                        { "label": "Hanning", "value": "hanning" },
+                        { "label": "Hamming", "value": "hamming" },
+                        { "label": "Blackman", "value": "blackman" },
+                        { "label": "Rectangular", "value": "rectangular" }
+                    ],
+                    "help": "Window applied before the FFT to control spectral leakage.",
+                    "param": "spectral-window"
                 }
             ]
         }

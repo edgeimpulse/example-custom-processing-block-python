@@ -18,7 +18,7 @@ This is an example of a custom processing block, which you can load in the Edge 
 4. Run the DSP block to ensure your environment is set up correctly:
 
     ```
-    python3 run.py --features features.txt --frequency 62.5 --axes "accX,accY,accZ" --scale-axes 1
+    python3 run.py --features features.txt --frequency 62.5 --axes "accX,accY,accZ" --scale-axes 1 --gravity-cutoff 0.7 --filter-order 2 --spectral-window hanning
     ```
 
     (Update frequency and axes with the frequency/axes of your data sample)
