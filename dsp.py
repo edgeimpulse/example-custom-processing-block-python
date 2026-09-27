@@ -71,7 +71,7 @@ def _spectral_features(values, sampling_freq, spectral_window):
     ]
 
 
-def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq, scale_axes, state,
+def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq, scale_axes,
                      gravity_cutoff=0.7, filter_order=2, spectral_window='hanning'):
     """Extract orientation-, motion-, and frequency-aware accelerometer features."""
     raw_data = np.asarray(raw_data, dtype=float).reshape(-1)
