@@ -34,6 +34,10 @@ If you have new parameters you want to add to the block:
 
 `run.py` will automatically pick up new parameters in `parameters.json`.
 
+## Adding graphs
+
+You can add graphs to show e.g. processed state, or intermediary features. See https://docs.edgeimpulse.com/tutorials/topics/feature-extraction/build-custom-processing-blocks#3-implementing-smoothing-and-drawing-graphs.
+
 ## Publishing to Edge Impulse
 
 1. Initialize the block:
