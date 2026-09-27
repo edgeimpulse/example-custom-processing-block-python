@@ -6,7 +6,7 @@
         "title": "Custom Block (Pyodide)",
         "author": "Test User",
         "description": "Custom block example in Pyodide",
-        "blockType": "pyodide_v1",
+        "runtime": "pyodide_v1",
         "preferConvolution": false,
         "visualization": "dimensionalityReduction",
         "experimental": false,

@@ -178,6 +178,7 @@ def main():
         'raw_data': raw_data,
         'axes': axes,
         'sampling_freq': args.frequency,
+        'state': None,
     }
 
     for item in items:
