@@ -11,8 +11,7 @@
         "visualization": "dimensionalityReduction",
         "experimental": false,
         "latestImplementationVersion": 1,
-        "hasAutoTune": true,
-        "minimumVersionForAutotune": 1
+        "hasFeatureImportance": true
     },
     "parameters": [
         {
@@ -54,10 +53,22 @@
                     "value": "hanning",
                     "type": "select",
                     "valid": [
-                        { "label": "Hanning", "value": "hanning" },
-                        { "label": "Hamming", "value": "hamming" },
-                        { "label": "Blackman", "value": "blackman" },
-                        { "label": "Rectangular", "value": "rectangular" }
+                        {
+                            "label": "Hanning",
+                            "value": "hanning"
+                        },
+                        {
+                            "label": "Hamming",
+                            "value": "hamming"
+                        },
+                        {
+                            "label": "Blackman",
+                            "value": "blackman"
+                        },
+                        {
+                            "label": "Rectangular",
+                            "value": "rectangular"
+                        }
                     ],
                     "help": "Window applied before the FFT to control spectral leakage.",
                     "param": "spectral-window"
